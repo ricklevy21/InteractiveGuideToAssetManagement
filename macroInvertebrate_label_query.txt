@@ -1,0 +1,9 @@
+--MACROINVERTEBRATE SAMPLE LABEL QUERY--
+
+SELECT cmiw.lot_id, cmiw.date, cmiw.chatfield_transect_id, cmiw.contents_taxa, GROUP_CONCAT(u.fullname ','), ct.origin_latitude, ct.origin_longitude, ct.end_latitude, ct.end_longitude
+FROM chatfield_macroinvert_work AS cmiw
+LEFT JOIN chatfield_macroinvert_work_users AS cmiwu ON cmiw.chatfield_macroinvert_work_id = cmiwu.chatfield_macroinvert_work_id
+LEFT JOIN users AS u ON cmiwu.user_id = u.user_id
+LEFT JOIN chatfield_transects AS ct ON cmiw.chatfield_transect_id = ct.chatfield_transect_id
+WHERE cmiw.preservation_type = 1
+GROUP BY cmiw.lot_id;
